@@ -37,7 +37,7 @@
     .software {width:128px; height:240px; background:url(software.png) -384px -240px;}
 }
 
-@media (max-width: 401px) {
-    .software {width:128px; height:240px; background:url(software.png) -512px -240 px;}
+@media (max-width: 400px) {
+    .software {width:128px; height:240px; background:url(software.png) -512px -240px;}
 }
 
