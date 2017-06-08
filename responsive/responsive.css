@@ -1,5 +1,6 @@
 /* responsive.css */
 
+/*
 <style>
 @media (min-width: 1200px) {
     .software {width:128px; height:240px; background:url(software.png) 0 0px;)}
@@ -8,4 +9,6 @@
 @media (max-width: 400px) {
 .software {width:128px; height:240px; background:url(software.png) 576 120 px;)}
 }
-</style>
+ </style>
+*/
+ .software {width:128px; height:240px; background:url(software.png) 576 120 px;
