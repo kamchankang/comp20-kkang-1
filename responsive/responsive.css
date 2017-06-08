@@ -7,8 +7,8 @@
 }
 
 @media (max-width: 400px) {
-.software {width:128px; height:240px; background:url(software.png) 576 120 px;)}
+.software {width:128px; height:240px; background:url(software.png) 576px -240 px;)}
 }
  </style>
 */
-.software {width:128px; height:240px; background:url(software.png) -50px -240px;}
+.software {width:128px; height:240px; background:url(software.png) -512px -240px;}
