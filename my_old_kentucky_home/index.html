@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>My Old Kentucky Home</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 id="title">My Old Kentucky Home</h1>
+
+<video src="https://www.cs.tufts.edu/comp/20/my_old_kentucky_home.mp4" id="music_video" controls></video>
+<div id="lyrics"></div>
+
+<script type="text/javascript">
+  var video = document.getElementById("music_video");
+  var caption = document.getElementById("lyrics");
+  video.addEventListener("timeupdate", function() {
+  
+  if (video.currentTime < 7) {
+			  caption.innerHTML = '<p class="special">*~sweet intro~*</p>'
+			  }
+
+  else if (video.currentTime > 7 && video.currentTime < 33) {
+  caption.innerHTML  = "<h3>The sun shines bright in My Old Kentucky Home.<br>&#39Tis summer, the people are gay.<br> The corn-top&#39s ripe and the meadow&#39s in the bloom,<br> While the birds make music all the day.</h3>";
+							}
+							else if (video.currentTime > 33 && video.currentTime <34){
+														caption.innerHTML = '<p class="special">Chorus??</p>';
+														}
+														else if (video.currentTime > 34 && video.currentTime < 34.8){
+																					 caption.innerHTML = '<p><img src="no.jpg" alt = "no meme" /></p>';
+																					 }
+
+																					 
+							
+							
+else if (video.currentTime > 34.8 && video.currentTime < 62){
+						       caption.innerHTML = "<h3>The young folks roll on the little cabin floor,<br> All merry, all happy and bright.<br> By &#39n&#39 by hard times comes a knocking at the door,<br> Then My Old Kentucky Home, good night!</h3>";
+						       }
+						       else if (video.currentTime > 62 && video.currentTime < 63){
+													      caption.innerHTML = '<p class="special">CHORUS!!</p>';
+													      }
+						       
+						       
+													      else if (video.currentTime > 63 && video.currentTime < 90){
+																				     if(video.currentTime > 81 && video.currentTime < 82){
+
+																										      caption.innerHTML = '<p><img src="kfc.png" alt = "kfc logo" /></p>';																										      }
+																										      else {
+																										      caption.innerHTML = "<h2>Weep no more my lady<br> Oh weep no more today&#59<br> We will sing one song<br> For My Old Kentucky Home<br> For My Old Kentucky Home, far away</h2>";
+																										      }
+						       }
+else {
+						       caption.innerHTML = '<p class="special">*~cheers and applause~*</p>';
+						       }
+						       }, false);
+</script>
+</body>
+</html>	

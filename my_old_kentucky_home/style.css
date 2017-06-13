@@ -1,0 +1,12 @@
+/* style.css */
+
+body {
+    text-align: center;
+    font-family: "Arial", Helvetica, sans-serif;
+}
+
+
+.special {
+    color: green;
+    font-style: italic;
+}
