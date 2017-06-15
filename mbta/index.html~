@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></sciprt>
+    <title>Closest MBTA Subway Station</title>
+  </head>
+  
+  <body>
+    <div id="map"></div>
+
+    <script type="text/javascript" src="myscript.js"></script>
+    
+  </body>
+</html>
