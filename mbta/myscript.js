@@ -24,23 +24,72 @@ function initMap() {
     var Braintree      = new google.maps.LatLng(42.2078543, -71.0011385);
 
     var station_array = [South_Station, Andrew, Porter_Square, Harvard_Square, JFK_UMass, Savin_Hill, Park_Street, Broadway, North_Quincy, Shawmut, Davis, Alewife, Kendall_MIT, Charles_MGH, Downtown_Crossing, Quincy_Center, Quincy_Adams, Ashmont, Wollaston, Fields_Corner, Central_Square, Braintree];
-    
+
+    var station_name_array = ["South Station", "Andrew", "Porter Square", "Harvard Square", "JFK/UMass", "Savin Hill", "Park Street", "Broadway", "North Quincy", "Shawmut", "Davis Square", "Alewife", "Kendall/MIT", "Charles/MGH", "Downtown Crossing", "Quincy Center", "Quincy Adams", "Ashmont", "Wollaston", "Fields_Corner", "Central Square", "Braintree"];
+
     var Options = {
 	zoom: 12,
 	center: South_Station,
 	mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-        var map = new google.maps.Map(document.getElementById('map'), Options);
+    
+    var map = new google.maps.Map(document.getElementById('map'), Options);
 
     var Icon = "placeholder.png"
+    var infowindow = new google.maps.InfoWindow();
+    var markers = [];
+    var marker, i;
+    var array_slot;
     for (i = 0; i < station_array.length; i++){
-	var marker  = new google.maps.Marker({
+	marker  = new google.maps.Marker({
 	    position: station_array[i],
-	    icon: Icon
+	    icon: Icon,
+	    map: map
 	});
-	marker.setMap(map);
+	array_slot = i;
+	var station_name = station_name_array[array_slot];
+
+	var request = new XMLHttpRequest();
+	google.maps.event.addListener(marker, 'click', (function(marker, station_name) {
+	    return function() {
+	    request.open("GET", "https://defense-in-derpth.herokuapp.com/redline.json", true);
+	    request.onreadystatechange = function() {
+	    if(request.readyState == 4 && request.status == 200){
+		console.log("Retrieving data");
+		data = request.responseText;
+		console.log(data);
+		DataArray = JSON.parse(data);
+		content = "Next train(s) arriving in (in seconds): " + "<br/>"; 
+		for(i = 0; i < DataArray.TripList.Trips.length; i++){
+		    for(j = 0; j < DataArray.TripList.Trips[i].Predictions.length; j++){
+			if(DataArray.TripList.Trips[i].Predictions[j].Stop == station_name){
+			    content += DataArray.TripList.Trips[i].Predictions[j].Seconds;
+			    content += "<br/>";
+			    
+			}
+		    }
+		}
+		infowindow.setContent("<p>" + station_name + "<br/>" + content + "</p>");
+		infowindow.open(map, marker);
+		markers.push(marker);
+	    }
+	    else if(request.readyState == 4 && request.status != 200){
+		document.getElementById("map").innerHTML = "Something wrong";
+	    }
+	    else {
+		console.log("Doing some work");
+	    }
+
+	    };
+	    request.send();	
+	    }
+	}) (marker, station_name));
     }
 
+
+
+
+    
     var toJFK = [Alewife, Davis, Porter_Square, Harvard_Square, Central_Square, Kendall_MIT, Charles_MGH, Park_Street, Downtown_Crossing, South_Station, Broadway,Andrew, JFK_UMass];
     var toAshmont = [JFK_UMass, Savin_Hill, Fields_Corner, Shawmut, Ashmont];
     var toBraintree = [JFK_UMass, North_Quincy, Wollaston, Quincy_Center, Quincy_Adams, Braintree];
@@ -73,16 +122,60 @@ function initMap() {
     redlinePath2.setMap(map);
     redlinePath3.setMap(map);
 
+    var infoWindow = new google.maps.InfoWindow({map: map});
     
-/* My markers do not have 'titles' so I commented this section out for now 
-  
+    if(navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position) {
+	    var pos = {
+		lat: position.coords.latitude,
+		lng: position.coords.longitude
+	    };
 
-    var infowindow = new google.maps.InfoWindow();
-    google.maps.event.addListener(marker, 'click', function() {
-	infowindow.setContent(this.title);
-	infowindow.open(this, marker);
+	    Geomarker = new google.maps.Marker({
+		position: pos});
+	    Geomarker.setMap(map);
+	    var GeoLatLng = new google.maps.LatLng(pos);
+	    var shortest_distance = google.maps.geometry.spherical.computeDistanceBetween(GeoLatLng, station_array[0]);
+	    var array_slot = 0;
+	    for (i = 1; i < station_array.length; i++){
+		var new_distance = google.maps.geometry.spherical.computeDistanceBetween(GeoLatLng, station_array[i]);
+		if(new_distance < shortest_distance){
+		    shortest_distance = new_distance;
+		    array_slot = i;
+		}
+	    }
+					
+	    shortest_distance = shortest_distance * 0.000621371; // Converting to miles from meters
+	    Geomarker.addListener('click', function (){
+		infoWindow.setPosition(pos);
+		infoWindow.setContent('Closest MBTA Red Line subway station: ' + station_name_array[array_slot] + '</br>' + 'Distance (in miles): ' + shortest_distance);
+		map.setCenter(pos);
+
+		var shortest_path = [pos, station_array[array_slot]];
+    
+    var shortest_polyline = new google.maps.Polyline({
+	path: shortest_path,
+	geodesic: true,
+	strokeColor: '#FF0000',
+	strokeOpacity: 1.0,
+	strokeWeight: 2
     });
-*/
+
+	shortest_polyline.setMap(map);
+	    });	    
+	}, function(){
+	    handleLocationError(true, infoWindow, map.getCenter());
+	});
+    }
+    else {
+	handleLocationError(false, infoWindow, map.getCenter());
+    }
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+	infoWindow.setPosition(pos);
+	infoWindow.setContent(browserHasGeolocation ?
+			      'Error: The Geolocation service failed.' :
+			      'Error: Your browser doesn\'t support geolocation.');
+    }
 }
 
 
