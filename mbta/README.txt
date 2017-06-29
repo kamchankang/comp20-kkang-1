@@ -1,9 +1,11 @@
-Assignment: Lab 10, Closest MBTA Subway Station, Part 2
+Assignment: Lab 12, Closest MBTA Subway Station, Part 3
 Name: Kam Chan Kang (Chan)
 GitHub: kamchankang
 
-1. All aspects of the work have been correctly implemented for part 2. However, although I do not have any errors, I have a couple of warnings (which Ming said points won't be taken off for) and other inconsistent glitches (e.g., spherical not always being defined; refreshing the page seems to work) that I would have liked to taken care of if I had managed my time better for this week. I did not get to try "going beyond" parts, but I plan to revist this assignement later and attempt all of them.
+1. All aspects of the work have been correctly implemented for part 3. 
 
-2. N/A; MBTA and Google Developers references were definitely helpful.
+2. Ming Chow; Although my code for lab 10 worked, it was disorganized and unnecessarily long. Therefore, I made a revision, modeled after Ming's solution for lab 10, before proceeding to work on lab 12. *There are some typos in Ming's code that makes 'Park Street' hidden and it doesn't have the red poly lines, so it was not just copy & paste.
+   Roy Kim; Roy referred me to the reference he used for CORS.
+   
 
-3. 4.0 hours 
+3. 5.0 hours 
