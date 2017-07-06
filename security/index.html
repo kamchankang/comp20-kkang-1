@@ -32,7 +32,8 @@
       <li>Location: /sendLocation</li>
       <li>Severity of issue: <span class="high">High</span>; most importantly, the contents of the main page, what the visitors will first see, can be manipulated. Depending on the type of code inserted, you could even redirect the visitors to another website or retrieve their cookies and "hijack" their session.</li>
       <li>Description of issue: I saw that the data inputted into "login" variable in the POST do not get properly filtered shown (You can see that it only checks if the data is undefined in the screenshot below the command), so I tried inserting a Javascript code which would insert an alert saying "This is an alert" using curl command below: </br>
-	<code>curl -H "Content-Type: application/json" -X POST -d '{"login":"<script>alert(\"This is an alert\");</script>","lat":"-50","lng":"-50"}' https://defense-in-derpth.herokuapp.com/sendLocation</code></br>
+	<code>curl -H "Content-Type: application/json" -X POST -d '{"login":"<script>alert(\"This is an alert\");</script>","lat":"-50","lng":"-50"}'https://defense-in-derpth.herokuapp.com/sendLocation</code>
+</br>
 	 <img src="images/login.png" alt="screenshot of code" style="width:640px">
 	
       </li>

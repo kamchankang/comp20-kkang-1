@@ -7,6 +7,7 @@ body {font-family: Verdana, sans-serif;}
 .high {color:red; font-weight:bold;}
 .medium {color:orange; font-weight:bold;}
 
+/* styling borrowed from Gabe Joseph's report in Spring 2013 */
 code, tt {
   margin: 0 2px;
   padding: 0 5px;
